@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        input{
+            border: none;
+            height: 100%;
+            width: 100%;
+            font-size: 20px;
+        }
+        table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+        width: 40rem;
+      }
+      button{
+        padding: 10px;
+        width: fit-content;
+        border: none;
+        background-color: rgb(144, 184, 151);
+        border-radius: 5px;
+        font-size: 20px;
+        margin: 20px;
+      }
+    </style>
+    <title>IWCN Task 1</title>
+  </head>
+  <body>
+    <h1>Month 1</h1>
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"
+      crossorigin
+    ></script>
+
+    <!-- React JSX code -->
+    <script type="text/babel">
+      const tableHeaders = [
+        {
+          id: 1,
+          header: "Onboarding Call",
+        },
+        {
+          id: 2,
+          header: "Google Search Console Access",
+        },
+        {
+          id: 3,
+          header: "Google Analytics Access",
+        },
+        {
+          id: 4,
+          header: "Website Access",
+        },
+        {
+          id: 5,
+          header: "Technical Audit",
+        },
+        {
+          id: 6,
+          header: "Anchor Text And Semantic Analysis",
+        },
+        {
+          id: 7,
+          header: "Anchor Text / URL mapping",
+        },
+        {
+          id: 8,
+          header: "Google Data Studio Report + Local Reporting Suite",
+        },
+        {
+          id: 9,
+          header: "Site Levle Optimization ",
+        },
+        {
+          id: 10,
+          header: "On Page Optimization",
+        },
+        {
+          id: 11,
+          header: "Content Creation",
+        },
+        {
+          id: 12,
+          header: "Content Publishing",
+        },
+        {
+          id: 13,
+          header: "Premium Press Release ",
+        },
+        {
+          id: 14,
+          header: "Authority Niche Placements",
+        },
+        {
+          id: 15,
+          header: "Review Management",
+        },
+        {
+          id: 16,
+          header: "Index Links",
+        },
+        {
+          id: 17,
+          header: "Video Recap",
+        },
+      ];
+
+      // functional component for each editable cell
+      const EditableCell = ({ value, onChange }) => (
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      );
+
+      // main component that renders the table
+      const EditableTable = () => {
+        const [rows, setRows] = React.useState(
+          Array.from(tableHeaders, (i, index) => ({
+            id: i.id,
+            heading:i.header,
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+          }))
+        );
+
+        const handleCellChange = (rowIndex, colName, newValue) => {
+          setRows((prevRows) => {
+            const updatedRows = [...prevRows];
+            updatedRows[rowIndex][colName] = newValue;
+            return updatedRows;
+          });
+        };
+
+        const handlePostData = () => {
+          // post data to API
+          console.log("Data ready to be posted:", rows);
+        };
+
+        return (
+          <div>
+            <table>
+              <thead></thead>
+              <tbody>
+                {rows.map((row, index) => (
+                  <tr key={row.id}>
+                    <td>{row.heading}</td>
+                    <td>
+                      <EditableCell
+                        value={row.col1}
+                        onChange={(newValue) =>
+                          handleCellChange(index, "col1", newValue)
+                        }
+                      />
+                    </td>
+                    <td>
+                      <EditableCell
+                        value={row.col2}
+                        onChange={(newValue) =>
+                          handleCellChange(index, "col2", newValue)
+                        }
+                      />
+                    </td>
+                    <td>
+                      <EditableCell
+                        value={row.col3}
+                        onChange={(newValue) =>
+                          handleCellChange(index, "col3", newValue)
+                        }
+                      />
+                    </td>
+                    <td>
+                      <EditableCell
+                        value={row.col4}
+                        onChange={(newValue) =>
+                          handleCellChange(index, "col4", newValue)
+                        }
+                      />
+                    </td>
+                    <td>
+                      <EditableCell
+                        value={row.col5}
+                        onChange={(newValue) =>
+                          handleCellChange(index, "col5", newValue)
+                        }
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <button onClick={handlePostData}>Post Data</button>
+          </div>
+        );
+      };
+
+      // Render the main component to the root element
+      ReactDOM.render(<EditableTable />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
